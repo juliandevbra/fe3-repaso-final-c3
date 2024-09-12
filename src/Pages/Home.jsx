@@ -2,11 +2,11 @@ import Card from "../Components/Card";
 import { useCharStates } from "../Context";
 
 const Home = () => {
-  const { list } = useCharStates();
+  const { state } = useCharStates();
 
   return (
     <div>
-      {list.map((char) => (
+      {state.list.map((char) => (
         <Card key={char.id} char={char} />
       ))}
     </div>

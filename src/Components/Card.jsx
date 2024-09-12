@@ -3,9 +3,17 @@ import { Link } from "react-router-dom";
 import { useCharStates } from "../Context";
 
 const Card = ({ char }) => {
-  const { setFavs } = useCharStates();
+  const { state, dispatch } = useCharStates();
+  const isFav = state.favs.find((fav) => fav.id === char.id);
+  console.log(isFav);
   const addFav = () => {
-    setFavs((favs) => [...favs, char]);
+    dispatch({ type: isFav ? "REMOVE_FAV" : "ADD_FAV", payload: char });
+    // setFavs((favs) => [...favs, char]);
+    // if (isFav) {
+    //   dispatch({ type: "REMOVE_FAV", payload: char });
+    // } else {
+    //   dispatch({ type: "ADD_FAV", payload: char });
+    // }
   };
 
   return (
@@ -14,7 +22,7 @@ const Card = ({ char }) => {
       <Link to={"/detail/" + char.id}>
         <h2>{char.name}</h2>
       </Link>
-      <button onClick={addFav}>⭐</button>
+      <button onClick={addFav}>{isFav ? "🌟" : "⭐"}</button>
     </div>
   );
 };
